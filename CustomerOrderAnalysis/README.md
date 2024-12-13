@@ -1,15 +1,6 @@
----
-aliases:
-  - Database Transformation and Analysis Project
-tags: []
-siblings: 
-linter-alias: Database Transformation and Analysis Project
----
 # Database Transformation and Analysis Project
 
 This project transforms a raw dataset (`RAW_MOCK_DATA`) into a structured relational database and conducts detailed analyses to derive actionable insights. The process includes identifying and correcting data issues, creating normalized tables, and performing SQL queries to answer key business questions.
-
----
 
 ## Table of Contents
 - [Project Overview](#project-overview)
@@ -17,8 +8,6 @@ This project transforms a raw dataset (`RAW_MOCK_DATA`) into a structured relati
 - [Data Cleaning and Transformation](#data-cleaning-and-transformation)
 - [Key Insights and Analyses](#key-insights-and-analyses)
 - [Future Steps](#future-steps)
-
----
 
 ## Project Overview
 
@@ -29,8 +18,6 @@ The raw dataset contains customer, product, and order information with the follo
 - **Erroneous `postcode` field**: Includes commas and inconsistent formatting.
 
 The goal is to build a normalized database with four main tables (`customers`, `products`, `orders`, `order_details`) and perform meaningful analyses, including revenue breakdowns and customer segmentation.
-
----
 
 ## Database Schema
 ### **1. Customers**
@@ -46,8 +33,6 @@ The goal is to build a normalized database with four main tables (`customers`, `
 - **Columns**: `order_id`, `product_id`, `quantity`, `price_per_unit`
 - Connects orders to individual products.
 
----
-
 ## Data Cleaning and Transformation
 ### Key Steps:
 1. **Extract and Clean Customer Data**:
@@ -60,8 +45,6 @@ The goal is to build a normalized database with four main tables (`customers`, `
    - Converted static date strings into proper `DATE` format.
 4. **Add Constraints and Relationships**:
    - Established primary and foreign key relationships between tables for referential integrity.
-
----
 
 ## Key Insights and Analyses
 
@@ -96,15 +79,11 @@ The goal is to build a normalized database with four main tables (`customers`, `
   - Home Goods displayed minimal variations, confirming its stable performance.
   - Kitchen showed steep declines after a strong start, reflecting its volatile nature.
 
----
-
 ## Future Steps
 1. **Create a Dashboard for Ongoing Analyses**:
    - Build an interactive dashboard to track metrics like month-over-month revenue changes.
 3. **Document the Insights in an Ad Hoc Report**:
    - Include visualizations to communicate findings effectively.
-
----
 
 ## How to Use This Project
 1. Clone this repository
@@ -114,13 +93,9 @@ The goal is to build a normalized database with four main tables (`customers`, `
     - Create the normalized database schema.
     - Run queries to generate insights.
 
----
-
 ## License
 
 This project is licensed under the MIT License. See `LICENSE` for details.
-
----
 
 ## Acknowledgments
 

@@ -78,17 +78,28 @@ The goal is to build a normalized database with four main tables (`customers`, `
 - **Result**:
   - **Male Californians** contributed the most to revenue, followed closely by **Female Californians**.
   - Notable observation: Customers aged 75+ form the top revenue segment, indicating an older customer base.
-### **4. Age Range Distribution**
+#### **Age Range Distribution**
 - **Query**: Analyzed revenue and customer distribution by age range.
 - **Result**:
   - The top customer age segment, both in percentage of customers and revenue, is **75+**.
+### **4. Month-to-Month Revenue Variations by Product Category**
+- **Query**: Analyzed monthly sales trends and identified seasonal peaks and troughs for each product category.
+- **Results**:
+  - **Electronics**: Revenue peaked in **April** and **August**, with significant dips surrounding these months.
+  - **Home Goods**: Revenue trends remained relatively stable, with a slight peak in **February**.
+  - **Kitchen**: Revenue exhibited erratic behavior, with strong early-year performance that softened as the year progressed.
+
+#### **Month-to-Month Percentage Change**
+- **Query**: Measured percentage change in revenue month-over-month across categories.
+- **Results**:
+  - Electronics experienced the most dramatic shifts, particularly a **large drop in May** and a sharp **peak in August**.
+  - Home Goods displayed minimal variations, confirming its stable performance.
+  - Kitchen showed steep declines after a strong start, reflecting its volatile nature.
 
 ---
 
 ## Future Steps
-1. **Analyze Monthly Variations**:
-   - Explore monthly revenue trends and seasonal effects.
-2. **Create a Dashboard for Ongoing Analyses**:
+1. **Create a Dashboard for Ongoing Analyses**:
    - Build an interactive dashboard to track metrics like month-over-month revenue changes.
 3. **Document the Insights in an Ad Hoc Report**:
    - Include visualizations to communicate findings effectively.

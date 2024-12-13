@@ -74,4 +74,49 @@ ORDER BY age_range
 
 # we have confirmed that the top age segment, both in percentage of customers and percentage of revenue, are individuals 75+
 
-##### up next -- month to month variations
+/* 4. What are the month-to-month sales variations for each product category, 
+ identifying statistically significant seasonal peaks and troughs?*/ 
+
+WITH 
+	cte AS (SELECT MONTH(o.purchase_date) AS sales_month, o.product_id, SUM(od.total_amount) AS total_revenue
+		FROM orders o LEFT JOIN order_details od ON o.order_id = od.order_id 
+		GROUP BY MONTH(o.purchase_date), o.product_id 
+		ORDER BY MONTH(o.purchase_date), o.product_id)
+SELECT 
+  c.sales_month,
+  SUM(c.total_revenue) AS total_revenue,
+  SUM(CASE WHEN p.category = 'Electronics' THEN c.total_revenue ELSE 0 END) AS 'electronics',
+  SUM(CASE WHEN p.category = 'Home Goods' THEN total_revenue ELSE 0 END) AS 'home_goods',
+  SUM(CASE WHEN p.category = 'Kitchen' THEN total_revenue ELSE 0 END) AS 'kitchen'
+FROM cte c LEFT JOIN products p ON c.product_id = p.product_id 
+GROUP BY c.sales_month
+ORDER BY c.sales_month;
+
+# We can see that Electronics had peaks in April and August, Home Goods is relatively flat, and Kitchen is more erratic. 
+
+# Let's see what the pct change MoM by category looks like
+WITH 
+	cte AS (SELECT MONTH(o.purchase_date) AS sales_month, o.product_id, SUM(od.total_amount) AS total_revenue
+		FROM orders o LEFT JOIN order_details od ON o.order_id = od.order_id 
+		GROUP BY MONTH(o.purchase_date), o.product_id 
+		ORDER BY MONTH(o.purchase_date), o.product_id),
+	cte2 AS (SELECT c.sales_month, SUM(c.total_revenue) AS total_revenue, 
+		SUM(CASE WHEN p.category = 'Electronics' THEN c.total_revenue ELSE 0 END) AS 'electronics', 
+		SUM(CASE WHEN p.category = 'Home Goods' THEN total_revenue ELSE 0 END) AS 'home_goods', 
+		SUM(CASE WHEN p.category = 'Kitchen' THEN total_revenue ELSE 0 END) AS 'kitchen'
+		FROM cte c LEFT JOIN products p ON c.product_id = p.product_id 
+		GROUP BY c.sales_month
+		ORDER BY c.sales_month)
+SELECT
+ c2.sales_month,
+  ROUND(100*((c2.total_revenue - LAG(c2.total_revenue) OVER (ORDER BY c2.sales_month))/c2.total_revenue),2) AS change_revenue, 
+  ROUND(100*((c2.electronics - LAG(c2.electronics) OVER (ORDER BY c2.sales_month))/c2.electronics),2) AS change_electronics, 
+  ROUND(100*((c2.home_goods - LAG(c2.home_goods) OVER (ORDER BY c2.sales_month))/c2.home_goods),2) AS change_home_goods, 
+  ROUND(100*((c2.kitchen - LAG(c2.kitchen) OVER (ORDER BY c2.sales_month))/c2.kitchen),2) AS change_kitchen
+FROM cte2 c2
+ORDER BY c2.sales_month;
+
+/* We can now see those shifts over each month a bit clearer. We can see a large drop in overall revenue from April to May.
+ * August now really stands out for electronics with a dip preceeding and following.
+ * Home Goods' peaks and valleys are the shallowest of the categories. Its best month was in February.
+ * Kitchen had its extremes at the begining of the year and has been softening throughout the year. 
